@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE</title>
+</head>
+<body>
+    <ul id="sse-events">
+
+    </ul>
+</body>
+<script>
+    const ul = document.getElementById('sse-events')
+    if (!ul) {
+        throw new Error("cannot find ul")
+    }
+
+    const eventSource = new EventSource("http://localhost:8001/sse")
+    if (!eventSource) {
+        throw new Error("Event Source is undefined")
+    }
+    eventSource.onmessage = function(ev) {
+        const li = newLi(ev.data)
+        
+        if (ul.children.length > 0) {
+            ul.children[0].prepend(li)
+        }
+
+        if (ul.children.length === 0) {
+            ul.appendChild(li)
+        }
+
+        
+    }
+
+    function newLi(data) {
+        const li = document.createElement('li')
+        li.innerText = data
+        return li
+    }
+</script>
+</html>

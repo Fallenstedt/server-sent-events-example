@@ -36,6 +36,15 @@ func main() {
 				log.Fatal(err)
 			}
 		}
+
+		//for {
+		//	b := []byte(time.Now().Format(time.RFC1123))
+		//	if err := nc.Notify(b); err != nil {
+		//		log.Fatal(err)
+		//	}
+		//
+		//	time.Sleep(1 * time.Second)
+		//}
 	}()
 
 	http.HandleFunc("/sse", handleSSE(nc))
